@@ -18,7 +18,7 @@ function App() {
         }
     }, [theme]);
     return (
-        <div>
+        <div className='dark:bg-[#0C0E16]'>
             <ThemeContext.Provider value={{ theme, setTheme }}>
                 <MainLayout>
 

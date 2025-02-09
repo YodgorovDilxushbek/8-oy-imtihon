@@ -15,14 +15,15 @@ function Layout() {
     }
 
     return (
-        <div className="sm:w-[375px] flex items-center   bg-[#373B53] gap-[178px] ">
-            <img src={Logo} alt="Logo" className="w-[72px] h-[72px]" />
-            <div className='flex gap-[129px]'>
-                <button className='w-[20px] h-[20px] ' onClick={handleClickTheme}>
-                    {theme === "light" ? "🌙 " : "🔅"}
+        <div className="sm:max-w-[800px] md:max-w-[900px]  xl:flex-col xl:max-w-[103px] xl:rounded-tr-[29px] xl:rounded-br-[29px] xl:h-dvh xl:raunded-2xl   lg:max-w-[1424px] w-full h-[80px] flex items-center justify-between bg-[#373B53] px-4 ">
+            <img src={Logo} alt="Logo" className="  sm:h-[64px] md:h-[72px] xl:max-w-[103px] xl:h-[103px]" />
+
+            <div className=" flex gap-[49px] md:justify-between sm:justify-between p-6 lg:flex-col lg:items-center ">
+                <button className="w-[32px] h-[32px] flex items-center justify-center " onClick={handleClickTheme}>
+                    {theme === "light" ? "🌙" : "🔅"}
                 </button>
 
-                <img src={User} alt="User" className="w-[32px] h-[32px]   " />
+                <img src={User} alt="User" className="w-[32px] h-[32px] xl:max-w-[40px] xl:max-h-[40px] xl:text-center   " />
             </div>
         </div>
     );
