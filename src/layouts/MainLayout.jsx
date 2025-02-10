@@ -21,9 +21,9 @@ function MainLayout({children}) {
         document.documentElement.setAttribute("data-theme", savedTheme);
     }, []);
     return (
-        <div className='xl:flex'>
-            <div className="sm:max-w-[800px] md:max-w-[1024px]  xl:flex-col xl:max-w-[103px] xl:rounded-tr-[29px]  xl:rounded-br-[29px] xl:h-dvh xl:raunded-2xl   lg:max-w-[1424px] w-full h-[80px] flex items-center justify-between bg-[#373B53]  ">
-            <img src={Logo} alt="Logo" className="  sm:h-[64px] md:h-[72px] xl:max-w-[103px] xl:h-[103px]" />
+        <div className='xl:flex '>
+            <div className="sm:max-w-[800px] md:max-w-[1024px]  xl:flex-col xl:max-w-[103px] xl:rounded-tr-[29px] top-0   xl:rounded-br-[29px]  xl:h-dvh xl:raunded-2xl   lg:max-w-[1424px] w-full h-[80px] flex items-center justify-between bg-[#373B53] i ">
+            <img src={Logo} alt="Logo" className="   md:h-[72px] xl:max-w-[103px] xl:h-[103px] sm:max-w-[72px] sm:h-[72px]" />
 
             <div className=" flex gap-[49px] md:justify-between sm:justify-between xl:flex-col xl:items-center ">
                 <button className="w-[32px] h-[32px] flex items-center justify-center " onClick={handleClickTheme}>
@@ -35,6 +35,7 @@ function MainLayout({children}) {
         </div>
                 <div className='container' >{children}</div> 
         </div> 
+        
 
     );
 }

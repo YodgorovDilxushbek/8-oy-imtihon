@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import MainLayout from './layouts/MainLayout'
 import Card from './pages/Card.jsx';
+import Cards from './components/Cards.jsx';
 
 export const ThemeContext = createContext();
 
@@ -25,11 +26,11 @@ function App() {
             <ThemeContext.Provider value={{ theme, setTheme }}>
                         <Routes>
                         <Route index element={<MainLayout><Card></Card></MainLayout>}></Route>
+                        <Route index element={<MainLayout><Cards></Cards></MainLayout>}></Route>
+
                     </Routes>
 
             </ThemeContext.Provider>
-       
-       
         </div >
 
     )
