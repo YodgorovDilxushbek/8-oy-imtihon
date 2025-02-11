@@ -22,11 +22,10 @@ function App() {
         }
     }, [theme]);
     return (
-        <div className='dark:bg-[#0C0E16] dark:text-[#F8F8FB]'>
+        <div className='dark:bg-[#0C0E16] dark:text-[#F8F8FB] min-h-svh'>
             <ThemeContext.Provider value={{ theme, setTheme }}>
                         <Routes>
                         <Route index element={<MainLayout><Card></Card></MainLayout>}></Route>
-                        <Route index element={<MainLayout><Cards></Cards></MainLayout>}></Route>
 
                     </Routes>
 
