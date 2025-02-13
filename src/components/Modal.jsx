@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
 const Modal = ({ onClose, onSave }) => {
-    // Dastlabki form holati
     const initialFormState = {
         senderStreet: "",
         senderCity: "",
@@ -21,6 +20,7 @@ const Modal = ({ onClose, onSave }) => {
 
     // Form holatini boshqarish uchun state
     const [formData, setFormData] = useState(initialFormState);
+    const [errors, setErrors] = useState("");
 
     // Input qiymatlarini yangilash funksiyasi
     const handleChange = (e) => {
@@ -62,23 +62,77 @@ const Modal = ({ onClose, onSave }) => {
         }));
     };
 
-    // Ma'lumotlarni saqlash funksiyasi
+    // Formni tekshirish funksiyasi
+    const validateForm = () => {
+        if (formData.senderStreet.length <= 7) {
+            alert("Jo'natuvchi manzili 7ta belgidan kam!");
+            return false;
+        }
+        if (formData.senderCity.length < 4) {
+            alert("Jo'natuvchi shahri 4ta belgidan kam!");
+            return false;
+        }
+        if (formData.senderPostCode.length < 6) {
+            alert("Jo'natuvchi pochta kodi 6ta belgidan kam!");
+            return false;
+        }
+        if (formData.senderCountry.length <= 3) {
+            alert("Jo'natuvchi davlati 3ta belgidan kam!");
+            return false;
+        }
+        if (formData.clientName.length <= 2) {
+            alert("Mijoz ismi 3ta belgidan kam!");
+            return false;
+        }
+        if (formData.clientEmail.length < 11) {
+            setErrors("Mijoz emaili 11ta belgidan kam!");
+            return false;
+        }
+        if (formData.clientStreet.length <= 10) {
+            alert("Mijoz manzili 10ta belgidan kam!");
+            return false;
+        }
+        if (formData.clientCity.length <= 3) {
+            alert("Mijoz shahri 3ta belgidan kam!");
+            return false;
+        }
+        if (formData.clientPostCode.length < 6) {
+            alert("Mijoz pochta kodi 6ta belgidan kam!");
+            return false;
+        }
+        if (formData.clientCountry.length < 2) {
+            alert("Mijoz davlati 6ta belgidan kam!");
+            return false;
+        }
+        if (formData.description.length < 15) {
+            alert("Tavsif 15ta belgidan kam!");
+            return false;
+        }
+        if (formData.invoiceDate.length !== 10) {
+            alert("Iltimos Invoice Date kiriting!");
+            return false;
+        }
+        return true;
+    };
+
     const saveToLocal = () => {
+        if (!validateForm()) return;
+
         const newInvoice = {
             ...formData,
-            id: Date.now().toString(), // Vaqt asosida unikal ID
-            status: "pending", // Default status
-            paymentDue: new Date(formData.invoiceDate).toISOString(), // Sana formatini ISO formatiga o'tkazish
-            total: formData.items.reduce((sum, item) => sum + item.total, 0) // Jami summa hisoblash
+            id: Date.now().toString(),
+            status: "pending",
+            paymentDue: new Date(formData.invoiceDate).toISOString(),
+            total: formData.items.reduce((sum, item) => sum + item.total, 0)
         };
         localStorage.setItem("invoiceData", JSON.stringify(newInvoice));
         onSave(newInvoice);
-        setFormData(initialFormState); // Formani tozalash
+        setFormData(initialFormState);
     };
 
     return (
         <div
-            className="absolute left-0 min-height: 100vh top-0 scrollbar-hide flex flex-col dark:text-white dark:bg-[#141625] bg-white w-full md:w-[768px] md:rounded-r-3xl p-6 pl-[70px] animation-left"
+            className=" fixed inset-0 z-50 left-0 min-height: 100vh top-0 scrollbar-hide flex flex-col dark:text-white dark:bg-[#141625] bg-white w-full md:w-[768px] md:rounded-r-3xl p-6 pl-[70px] animation-left"
             style={{ opacity: 1, transform: "none" }}
         >
             {onClose && (
@@ -91,7 +145,8 @@ const Modal = ({ onClose, onSave }) => {
             )}
 
             <h1 className="font-semibold dark:text-white text-3xl">Create Invoice</h1>
-            <div className="overflow-y-scroll scrollbar-hide my-14">
+            <div className="overflow-y-scroll scrollbar-hide my-14 ">
+                {errors && <p className="text-red-500 mb-4">{errors}</p>}
                 <h1 className="text-[#7c5dfa] mb-4 font-medium">Bill From</h1>
                 <div className="grid grid-cols-3 mx-1 space-y-4">
                     <div className="flex flex-col col-span-3">
@@ -153,7 +208,7 @@ const Modal = ({ onClose, onSave }) => {
                         <label className="text-gray-400 font-light">Client Email</label>
                         <input
                             name="clientEmail"
-                            type="text"
+                            type="email"
                             className="dark:bg-[#1e2139] py-2 px-4 border-[.2px] rounded-lg focus:outline-purple-400 border-gray-300 focus:outline-none dark:border-gray-800"
                             value={formData.clientEmail}
                             onChange={handleChange}
@@ -293,13 +348,13 @@ const Modal = ({ onClose, onSave }) => {
                     + Add New Item
                 </button>
             </div>
-            <div className="flex justify-between">
-                <div>
-                    <button onClick={onClose} className="bg-gray-200 hover:opacity-80 mx-auto py-4 items-center dark:text-white dark:bg-[#252945] justify-center px-8 rounded-full animation-left">
+            <div className="flex justify-between  ">
+                <div >
+                    <button onClick={onClose} className="  bg-gray-200 hover:opacity-80 mx-auto py-4 items-center dark:text-white dark:bg-[#252945] justify-center px-8 rounded-full animation-left">
                         Discard
                     </button>
                 </div>
-                <div>
+                <div >
                     <button onClick={saveToLocal} className="text-white hover:opacity-80 mx-auto py-4 items-center bg-[#7c5dfa] justify-center px-8 rounded-full">
                         Save &amp; Send
                     </button>
@@ -309,4 +364,4 @@ const Modal = ({ onClose, onSave }) => {
     );
 };
 
-export default Modal;   
+export default Modal;
